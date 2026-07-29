@@ -1,6 +1,6 @@
 # Documentación HPC Facultad de Ingeniería UNAL
 
-Repositorio de documentación del acceso al HPC de la Facultad de Ingeniería de la Universidad Nacional de Colombia.
+Repositorio de documentación del acceso y uso del HPC de la Facultad de Ingeniería de la Universidad Nacional de Colombia.
 
 ## Contenido
 
