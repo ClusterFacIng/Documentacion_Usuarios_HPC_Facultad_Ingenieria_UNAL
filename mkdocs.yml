@@ -1,10 +1,16 @@
-site_name: Tutorial de acceso al HPC de la Facultad de Ingeniería UNAL
+site_name: Documentación de acceso y uso del HPC de la Facultad de Ingeniería UNAL
 site_description: Guías de conexión al HPC desde Windows y Linux
 docs_dir: docs
 nav:
   - Inicio: index.md
-  - Windows: guia-windows.md
-  - Linux: guia-linux.md
+  - Acceso:
+      - Windows: guia-windows.md
+      - Linux: guia-linux.md
+  - Ejecución de aplicaciones:
+      - Ejecución de aplicaciones en el HPC: 04-ejecucion-de-aplicaciones-y-computo-con-slurm.md
+      - Modules y Lmod: 01-uso-modules-lmod.md
+      - Slurm: 02-uso-slurm.md
+      - Uso interactivo de aplicaciones: 03-uso-interactivo-de-aplicaciones.md
 theme:
   name: readthedocs
 markdown_extensions:
