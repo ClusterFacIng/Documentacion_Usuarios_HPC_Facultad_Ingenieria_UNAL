@@ -35,7 +35,7 @@ Antes de conectarse a la VPN, debe completar el formulario con sus datos y adjun
 
 Formulario de acceso:
 
-[Formulario de acceso](https://docs.google.com/forms/d/1ut6VFN2fCEp74stZgl5Dla21sOUSgK5AIaUFry30ss8/viewform?edit_requested=true)
+[Formulario de acceso](https://docs.google.com/forms/d/e/1FAIpQLSesV0MxEX2LuW0-qb3do4K5E4pAYCZPuE7c8N2kmcX-bvVP2Q/viewform?usp=header)
 
 Hasta recibir una respuesta favorable, no debe intentar usar la VPN ni acceder al HPC.
 

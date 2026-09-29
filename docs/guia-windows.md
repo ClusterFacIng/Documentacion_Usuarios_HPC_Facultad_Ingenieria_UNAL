@@ -73,7 +73,7 @@ C:\Users\NombreUsuario\.ssh\
 
 al formulario de acceso al HPC:
 
-[Formulario de acceso](https://docs.google.com/forms/d/1ut6VFN2fCEp74stZgl5Dla21sOUSgK5AIaUFry30ss8/viewform?edit_requested=true)
+[Formulario de acceso](https://docs.google.com/forms/d/e/1FAIpQLSesV0MxEX2LuW0-qb3do4K5E4pAYCZPuE7c8N2kmcX-bvVP2Q/viewform?usp=header)
 
 Complete los datos solicitados y adjunte la llave pública.
 
