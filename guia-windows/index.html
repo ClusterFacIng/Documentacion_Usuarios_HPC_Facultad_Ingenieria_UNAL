@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <link rel="shortcut icon" href="../img/favicon.ico" />
+    <title>Windows - Documentación de acceso y uso del HPC de la Facultad de Ingeniería UNAL</title>
+    <link rel="stylesheet" href="../css/theme.css" />
+    <link rel="stylesheet" href="../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "Windows";
+        var mkdocs_page_input_path = "guia-windows.md";
+        var mkdocs_page_url = null;
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href=".." class="icon icon-home"> Documentación de acceso y uso del HPC de la Facultad de Ingeniería UNAL
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="..">Inicio</a>
+                </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Acceso</span></p>
+              <ul class="current">
+                  <li class="toctree-l1 current"><a class="reference internal current" href="#">Windows</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#objetivos">Objetivos</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#requisitos-previos">Requisitos previos</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#arquitectura-de-conexion">Arquitectura de conexión</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#paso-1-crear-la-llave-ssh">Paso 1: Crear la llave SSH</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#paso-2-enviar-la-llave-publica-y-esperar-aprobacion">Paso 2: Enviar la llave pública y esperar aprobación</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#paso-3-descargar-globalprotect">Paso 3: Descargar GlobalProtect</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#paso-4-instalar-globalprotect">Paso 4: Instalar GlobalProtect</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#paso-5-abrir-globalprotect">Paso 5: Abrir GlobalProtect</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#paso-6-iniciar-sesion">Paso 6: Iniciar sesión</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#paso-7-verificar-la-conexion-vpn">Paso 7: Verificar la conexión VPN</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#paso-8-verificar-openssh">Paso 8: Verificar OpenSSH</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#paso-9-crear-el-archivo-de-configuracion-ssh">Paso 9: Crear el archivo de configuración SSH</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#paso-10-verificar-el-archivo-config">Paso 10: Verificar el archivo config</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#paso-11-iniciar-el-servicio-ssh-agent">Paso 11: Iniciar el servicio ssh-agent</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#paso-12-agregar-la-llave-al-agente-ssh">Paso 12: Agregar la llave al agente SSH</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#paso-13-conectarse-al-hpc">Paso 13: Conectarse al HPC</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#verificar-la-conexion">Verificar la conexión</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#cerrar-la-sesion">Cerrar la sesión</a>
+    </li>
+    </ul>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../guia-linux/">Linux</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Ejecución de aplicaciones</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../04-ejecucion-de-aplicaciones-y-computo-con-slurm/">Ejecución de aplicaciones en el HPC</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../01-uso-modules-lmod/">Modules y Lmod</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../02-uso-slurm/">Slurm</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../03-uso-interactivo-de-aplicaciones/">Uso interactivo de aplicaciones</a>
+                  </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="..">Documentación de acceso y uso del HPC de la Facultad de Ingeniería UNAL</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href=".." class="icon icon-home" aria-label="Docs"></a></li>
+          <li class="breadcrumb-item">Acceso</li>
+      <li class="breadcrumb-item active">Windows</li>
+    <li class="wy-breadcrumbs-aside">
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="tutorial-de-conexion-al-hpc-de-la-facultad-de-ingenieria-desde-windows">Tutorial de conexión al HPC de la Facultad de Ingeniería desde Windows<a class="headerlink" href="#tutorial-de-conexion-al-hpc-de-la-facultad-de-ingenieria-desde-windows" title="Permanent link">&para;</a></h1>
+<p>Esta guía explica cómo conectarse al HPC desde Windows usando GlobalProtect para la VPN institucional y OpenSSH para el acceso por llave RSA.</p>
+<p>El acceso al VPN y al HPC depende de una aprobación previa de los administradores. Primero debe generar su llave pública, enviarla con sus datos mediante el formulario y esperar una respuesta favorable antes de intentar conectarse.</p>
+<h2 id="objetivos">Objetivos<a class="headerlink" href="#objetivos" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Generar una llave SSH RSA de 4096 bits.</li>
+<li>Enviar la llave pública al formulario institucional y esperar aprobación.</li>
+<li>Instalar y usar GlobalProtect.</li>
+<li>Conectarse a la VPN institucional.</li>
+<li>Configurar OpenSSH en Windows.</li>
+<li>Conectarse al HPC mediante SSH.</li>
+</ul>
+<h2 id="requisitos-previos">Requisitos previos<a class="headerlink" href="#requisitos-previos" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Cuenta activa de la Universidad Nacional.</li>
+<li>Windows 10 o Windows 11.</li>
+<li>Conexión a Internet.</li>
+</ul>
+<h2 id="arquitectura-de-conexion">Arquitectura de conexión<a class="headerlink" href="#arquitectura-de-conexion" title="Permanent link">&para;</a></h2>
+<pre><code class="language-text">Internet
+  |
+  v
+vpnpa.unal.edu.co
+  |
+  v
+GlobalProtect VPN
+  |
+  v
+Red interna de la Universidad
+  |
+  v
+HPC
+</code></pre>
+<h2 id="paso-1-crear-la-llave-ssh">Paso 1: Crear la llave SSH<a class="headerlink" href="#paso-1-crear-la-llave-ssh" title="Permanent link">&para;</a></h2>
+<p>Genere una llave RSA de 4096 bits:</p>
+<pre><code class="language-powershell">ssh-keygen -t rsa -b 4096
+</code></pre>
+<p>Presione Enter para guardar la llave en la ubicación predeterminada:</p>
+<pre><code class="language-text">C:\Users\NombreUsuario\.ssh\
+</code></pre>
+<p>Cuando el sistema solicite una passphrase, puede dejarla vacía o definir una contraseña segura.</p>
+<p>Se crearán dos archivos:</p>
+<pre><code class="language-text">id_rsa
+id_rsa.pub
+</code></pre>
+<ul>
+<li><code>id_rsa</code>: llave privada, no se comparte.</li>
+<li><code>id_rsa.pub</code>: llave pública, se envía al administrador del HPC.</li>
+</ul>
+<h2 id="paso-2-enviar-la-llave-publica-y-esperar-aprobacion">Paso 2: Enviar la llave pública y esperar aprobación<a class="headerlink" href="#paso-2-enviar-la-llave-publica-y-esperar-aprobacion" title="Permanent link">&para;</a></h2>
+<p>Envíe el archivo <code>id_rsa.pub</code> desde la carpeta:</p>
+<pre><code class="language-text">C:\Users\NombreUsuario\.ssh\
+</code></pre>
+<p>al formulario de acceso al HPC:</p>
+<p><a href="https://docs.google.com/forms/d/e/1FAIpQLSesV0MxEX2LuW0-qb3do4K5E4pAYCZPuE7c8N2kmcX-bvVP2Q/viewform?usp=header">Formulario de acceso</a></p>
+<p>Complete los datos solicitados y adjunte la llave pública.</p>
+<p>Hasta recibir una respuesta favorable, no intente conectarse a la VPN ni al HPC.</p>
+<h2 id="paso-3-descargar-globalprotect">Paso 3: Descargar GlobalProtect<a class="headerlink" href="#paso-3-descargar-globalprotect" title="Permanent link">&para;</a></h2>
+<p>Cuando ya tenga la aprobación, abra un navegador e ingrese a <a href="https://vpnpa.unal.edu.co">vpnpa.unal.edu.co</a>.</p>
+<p>Inicie sesión con sus credenciales institucionales y descargue el instalador de GlobalProtect para Windows.</p>
+<p><img alt="Portal de acceso" src="../assets/image.png" /></p>
+<p><img alt="Descarga de GlobalProtect" src="../assets/image-1.png" /></p>
+<h2 id="paso-4-instalar-globalprotect">Paso 4: Instalar GlobalProtect<a class="headerlink" href="#paso-4-instalar-globalprotect" title="Permanent link">&para;</a></h2>
+<p>Ejecute el archivo descargado y siga el asistente de instalación.</p>
+<p>No es necesario cambiar la configuración predeterminada.</p>
+<h2 id="paso-5-abrir-globalprotect">Paso 5: Abrir GlobalProtect<a class="headerlink" href="#paso-5-abrir-globalprotect" title="Permanent link">&para;</a></h2>
+<p>Abra GlobalProtect desde el menú Inicio.</p>
+<p>En el campo <strong>Portal</strong> escriba:</p>
+<pre><code class="language-text">vpnpa.unal.edu.co
+</code></pre>
+<p>Seleccione <strong>Conectar</strong>.</p>
+<p><img alt="Ingreso al portal" src="../assets/image-2.png" /></p>
+<h2 id="paso-6-iniciar-sesion">Paso 6: Iniciar sesión<a class="headerlink" href="#paso-6-iniciar-sesion" title="Permanent link">&para;</a></h2>
+<p>Ingrese su usuario y contraseña institucionales cuando aparezca la ventana de autenticación.</p>
+<p><img alt="Autenticación institucional" src="../assets/image-3.png" /></p>
+<h2 id="paso-7-verificar-la-conexion-vpn">Paso 7: Verificar la conexión VPN<a class="headerlink" href="#paso-7-verificar-la-conexion-vpn" title="Permanent link">&para;</a></h2>
+<p>Si la autenticación fue exitosa, el estado de GlobalProtect debe mostrar <strong>Conectado</strong>.</p>
+<p><img alt="Estado conectado" src="../assets/image-4.png" /></p>
+<h2 id="paso-8-verificar-openssh">Paso 8: Verificar OpenSSH<a class="headerlink" href="#paso-8-verificar-openssh" title="Permanent link">&para;</a></h2>
+<p>Abra PowerShell como administrador y ejecute:</p>
+<pre><code class="language-powershell">ssh -V
+</code></pre>
+<p>Debe aparecer una salida similar a esta:</p>
+<pre><code class="language-text">OpenSSH_for_Windows_9.x
+</code></pre>
+<h2 id="paso-9-crear-el-archivo-de-configuracion-ssh">Paso 9: Crear el archivo de configuración SSH<a class="headerlink" href="#paso-9-crear-el-archivo-de-configuracion-ssh" title="Permanent link">&para;</a></h2>
+<p>En la carpeta <code>C:\Users\NombreUsuario\.ssh\</code>, cree un archivo llamado exactamente <code>config</code>.</p>
+<p>Puede abrirlo con:</p>
+<pre><code class="language-powershell">notepad $env:USERPROFILE\.ssh\config
+</code></pre>
+<p>Agregue este contenido:</p>
+<pre><code class="language-text">Host clusterFacIngUN
+    HostName 168.176.27.104
+    User SU_USUARIO_HPC
+    Port 22
+    IdentityFile ~/.ssh/id_rsa
+    IdentitiesOnly yes
+</code></pre>
+<p>Reemplace <code>SU_USUARIO_HPC</code> por su usuario institucional.</p>
+<h2 id="paso-10-verificar-el-archivo-config">Paso 10: Verificar el archivo config<a class="headerlink" href="#paso-10-verificar-el-archivo-config" title="Permanent link">&para;</a></h2>
+<p>Ejecute:</p>
+<pre><code class="language-powershell">dir $env:USERPROFILE\.ssh
+</code></pre>
+<p>Debe ver al menos:</p>
+<pre><code class="language-text">config
+id_rsa
+id_rsa.pub
+</code></pre>
+<h2 id="paso-11-iniciar-el-servicio-ssh-agent">Paso 11: Iniciar el servicio ssh-agent<a class="headerlink" href="#paso-11-iniciar-el-servicio-ssh-agent" title="Permanent link">&para;</a></h2>
+<p>Verifique el estado del servicio:</p>
+<pre><code class="language-powershell">Get-Service ssh-agent
+</code></pre>
+<p>Si está detenido, ejecútelo:</p>
+<pre><code class="language-powershell">Set-Service ssh-agent -StartupType Automatic
+Start-Service ssh-agent
+</code></pre>
+<h2 id="paso-12-agregar-la-llave-al-agente-ssh">Paso 12: Agregar la llave al agente SSH<a class="headerlink" href="#paso-12-agregar-la-llave-al-agente-ssh" title="Permanent link">&para;</a></h2>
+<p>Agregue la llave privada al agente:</p>
+<pre><code class="language-powershell">ssh-add $env:USERPROFILE\.ssh\id_rsa
+</code></pre>
+<p>Verifique que quedó cargada:</p>
+<pre><code class="language-powershell">ssh-add -l
+</code></pre>
+<h2 id="paso-13-conectarse-al-hpc">Paso 13: Conectarse al HPC<a class="headerlink" href="#paso-13-conectarse-al-hpc" title="Permanent link">&para;</a></h2>
+<p>Si el archivo <code>config</code> está bien configurado, conecte con:</p>
+<pre><code class="language-powershell">ssh clusterFacIngUN
+</code></pre>
+<p>Si necesita compresión de la sesión para transferir grandes cantidades de datos, puede usar:</p>
+<pre><code class="language-powershell">ssh -CY clusterFacIngUN
+</code></pre>
+<p>La primera vez aparecerá un aviso de autenticidad del host. Responda <code>yes</code> para guardar la huella digital.</p>
+<h2 id="verificar-la-conexion">Verificar la conexión<a class="headerlink" href="#verificar-la-conexion" title="Permanent link">&para;</a></h2>
+<p>Una vez dentro del HPC, ejecute:</p>
+<pre><code class="language-bash">whoami
+</code></pre>
+<p>Debe mostrar su usuario del HPC.</p>
+<h2 id="cerrar-la-sesion">Cerrar la sesión<a class="headerlink" href="#cerrar-la-sesion" title="Permanent link">&para;</a></h2>
+<p>Para salir del HPC, ejecute:</p>
+<pre><code class="language-bash">exit
+</code></pre>
+<p>Después desconecte la VPN desde GlobalProtect.</p>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href=".." class="btn btn-neutral float-left" title="Inicio"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../guia-linux/" class="btn btn-neutral float-right" title="Linux">Next <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+    
+      <span><a href=".." style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="../guia-linux/" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script src="../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "..";</script>
+    <script src="../js/theme_extra.js"></script>
+    <script src="../js/theme.js"></script>
+      <script src="../search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>

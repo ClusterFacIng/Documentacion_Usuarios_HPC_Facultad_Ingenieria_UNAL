@@ -1,0 +1,740 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <link rel="shortcut icon" href="../img/favicon.ico" />
+    <title>Slurm - Documentación de acceso y uso del HPC de la Facultad de Ingeniería UNAL</title>
+    <link rel="stylesheet" href="../css/theme.css" />
+    <link rel="stylesheet" href="../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "Slurm";
+        var mkdocs_page_input_path = "02-uso-slurm.md";
+        var mkdocs_page_url = null;
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href=".." class="icon icon-home"> Documentación de acceso y uso del HPC de la Facultad de Ingeniería UNAL
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="..">Inicio</a>
+                </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Acceso</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../guia-windows/">Windows</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../guia-linux/">Linux</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Ejecución de aplicaciones</span></p>
+              <ul class="current">
+                  <li class="toctree-l1"><a class="reference internal" href="../04-ejecucion-de-aplicaciones-y-computo-con-slurm/">Ejecución de aplicaciones en el HPC</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../01-uso-modules-lmod/">Modules y Lmod</a>
+                  </li>
+                  <li class="toctree-l1 current"><a class="reference internal current" href="#">Slurm</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#1-objetivo">1. Objetivo</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#2-configuracion-actual-del-hpc">2. Configuración actual del HPC</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#3-conceptos-basicos">3. Conceptos básicos</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#4-estructura-basica-de-un-script">4. Estructura básica de un script</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#5-nombre-del-trabajo">5. Nombre del trabajo</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#6-seleccion-de-particion">6. Selección de partición</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#7-solicitar-tiempo">7. Solicitar tiempo</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#8-solicitar-tareas">8. Solicitar tareas</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#9-cpu-por-tarea">9. CPU por tarea</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#10-solicitar-nodos">10. Solicitar nodos</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#11-tareas-por-nodo">11. Tareas por nodo</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#12-solicitar-memoria">12. Solicitar memoria</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#importante">Importante</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#13-memoria-por-cpu">13. Memoria por CPU</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#14-archivos-de-salida-y-error">14. Archivos de salida y error</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#15-uso-de-modulos">15. Uso de módulos</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#16-aplicaciones-que-requieren-configuracion-adicional">16. Aplicaciones que requieren configuración adicional</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#17-ejecucion-mediante-srun">17. Ejecución mediante srun</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#18-uso-interactivo-con-srun">18. Uso interactivo con srun</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#19-solicitar-recursos-interactivos-con-salloc">19. Solicitar recursos interactivos con salloc</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#20-mpi-srun-y-mpirun">20. MPI: srun y mpirun</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#21-comandos-normales-dentro-del-script">21. Comandos normales dentro del script</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#22-ejemplo-basico">22. Ejemplo básico</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#23-ejemplo-mpi">23. Ejemplo MPI</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#24-ejemplo-openfoam">24. Ejemplo OpenFOAM</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#25-enviar-trabajos">25. Enviar trabajos</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#26-consultar-trabajos">26. Consultar trabajos</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#27-estados-comunes">27. Estados comunes</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#28-informacion-detallada-de-un-trabajo">28. Información detallada de un trabajo</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#29-razones-comunes-de-espera">29. Razones comunes de espera</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#30-consultar-particiones-y-nodos">30. Consultar particiones y nodos</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#31-variables-utiles-de-slurm">31. Variables útiles de Slurm</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#32-cancelar-trabajos">32. Cancelar trabajos</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#33-buenas-practicas">33. Buenas prácticas</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#34-flujo-recomendado">34. Flujo recomendado</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#35-resumen-rapido">35. Resumen rápido</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#enviar">Enviar</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#consultar-cola">Consultar cola</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#ver-informacion">Ver información</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#cancelar">Cancelar</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#ver-particiones">Ver particiones</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#31-importante">31. Importante</a>
+    </li>
+    </ul>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../03-uso-interactivo-de-aplicaciones/">Uso interactivo de aplicaciones</a>
+                  </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="..">Documentación de acceso y uso del HPC de la Facultad de Ingeniería UNAL</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href=".." class="icon icon-home" aria-label="Docs"></a></li>
+          <li class="breadcrumb-item">Ejecución de aplicaciones</li>
+      <li class="breadcrumb-item active">Slurm</li>
+    <li class="wy-breadcrumbs-aside">
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="manual-de-uso-de-slurm">Manual de uso de Slurm<a class="headerlink" href="#manual-de-uso-de-slurm" title="Permanent link">&para;</a></h1>
+<h2 id="1-objetivo">1. Objetivo<a class="headerlink" href="#1-objetivo" title="Permanent link">&para;</a></h2>
+<p>Este documento explica cómo preparar, enviar y monitorear trabajos en el HPC mediante <strong>Slurm</strong>. Está pensado para usuarios finales y refleja la configuración actual del clúster.</p>
+<blockquote>
+<p><strong>Importante:</strong> todos los trabajos de cómputo deben ejecutarse a través de Slurm. Solicite solo los recursos que realmente necesita.</p>
+</blockquote>
+<h2 id="2-configuracion-actual-del-hpc">2. Configuración actual del HPC<a class="headerlink" href="#2-configuracion-actual-del-hpc" title="Permanent link">&para;</a></h2>
+<p>Actualmente el clúster cuenta con cuatro nodos de cómputo:</p>
+<pre><code class="language-text">cnode01
+cnode02
+cnode03
+cnode04
+</code></pre>
+<p>Cada nodo dispone de:</p>
+<ul>
+<li>96 CPU lógicas.</li>
+<li>2 sockets.</li>
+<li>24 cores por socket.</li>
+<li>2 hilos por core.</li>
+<li>250000 MB de memoria RAM.</li>
+</ul>
+<p>Particiones disponibles:</p>
+<table>
+<thead>
+<tr>
+<th>Partición</th>
+<th style="text-align: right;">Tiempo máximo</th>
+<th>Predeterminada</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>hpc-short</td>
+<td style="text-align: right;">1 hora</td>
+<td>Sí</td>
+</tr>
+<tr>
+<td>hpc</td>
+<td style="text-align: right;">24 horas</td>
+<td>No</td>
+</tr>
+<tr>
+<td>hpc-long</td>
+<td style="text-align: right;">72 horas</td>
+<td>No</td>
+</tr>
+</tbody>
+</table>
+<p>Las particiones están configuradas con asignación exclusiva de recursos:</p>
+<pre><code class="language-text">OverSubscribe=EXCLUSIVE
+</code></pre>
+<h2 id="3-conceptos-basicos">3. Conceptos básicos<a class="headerlink" href="#3-conceptos-basicos" title="Permanent link">&para;</a></h2>
+<p>Un trabajo es una solicitud de recursos que Slurm administrará para ejecutar un programa.</p>
+<pre><code class="language-text">Usuario
+  ↓
+Script Slurm
+  ↓
+sbatch
+  ↓
+Slurm
+  ↓
+Recursos asignados
+  ↓
+Ejecución
+</code></pre>
+<p>El usuario no necesita seleccionar manualmente un nodo para un trabajo normal.</p>
+<h2 id="4-estructura-basica-de-un-script">4. Estructura básica de un script<a class="headerlink" href="#4-estructura-basica-de-un-script" title="Permanent link">&para;</a></h2>
+<p>Un script mínimo recomendado incluye directivas, carga de módulos y el comando de ejecución:</p>
+<pre><code class="language-bash">#!/bin/bash
+
+#SBATCH --job-name=mi_trabajo
+#SBATCH --partition=hpc-short
+#SBATCH --time=00:30:00
+#SBATCH --ntasks=1
+#SBATCH --cpus-per-task=1
+#SBATCH --mem=2G
+
+module purge
+module load &lt;aplicacion&gt;
+
+srun &lt;comando&gt;
+</code></pre>
+<h2 id="5-nombre-del-trabajo">5. Nombre del trabajo<a class="headerlink" href="#5-nombre-del-trabajo" title="Permanent link">&para;</a></h2>
+<pre><code class="language-bash">#SBATCH --job-name=simulacion01
+</code></pre>
+<p>Esto permite identificar fácilmente el trabajo en la cola.</p>
+<h2 id="6-seleccion-de-particion">6. Selección de partición<a class="headerlink" href="#6-seleccion-de-particion" title="Permanent link">&para;</a></h2>
+<pre><code class="language-bash">#SBATCH --partition=hpc-short
+</code></pre>
+<p>Particiones disponibles:</p>
+<pre><code class="language-text">hpc-short
+hpc
+hpc-long
+</code></pre>
+<p>Recomendación de uso:</p>
+<ul>
+<li><code>hpc-short</code>: pruebas y trabajos cortos.</li>
+<li><code>hpc</code>: trabajos de duración media.</li>
+<li><code>hpc-long</code>: simulaciones largas.</li>
+</ul>
+<h2 id="7-solicitar-tiempo">7. Solicitar tiempo<a class="headerlink" href="#7-solicitar-tiempo" title="Permanent link">&para;</a></h2>
+<pre><code class="language-bash">#SBATCH --time=HH:MM:SS
+</code></pre>
+<p>Ejemplos:</p>
+<pre><code class="language-bash">#SBATCH --time=00:30:00
+#SBATCH --time=04:00:00
+#SBATCH --time=48:00:00
+</code></pre>
+<p>El tiempo solicitado no puede superar el límite de la partición.</p>
+<h2 id="8-solicitar-tareas">8. Solicitar tareas<a class="headerlink" href="#8-solicitar-tareas" title="Permanent link">&para;</a></h2>
+<pre><code class="language-bash">#SBATCH --ntasks=8
+</code></pre>
+<p>Generalmente corresponde al número de procesos MPI.</p>
+<h2 id="9-cpu-por-tarea">9. CPU por tarea<a class="headerlink" href="#9-cpu-por-tarea" title="Permanent link">&para;</a></h2>
+<pre><code class="language-bash">#SBATCH --cpus-per-task=4
+</code></pre>
+<p>Ejemplo:</p>
+<pre><code class="language-bash">#SBATCH --ntasks=8
+#SBATCH --cpus-per-task=4
+</code></pre>
+<p>Recursos solicitados:</p>
+<pre><code class="language-text">8 tareas × 4 CPU = 32 CPU
+</code></pre>
+<h2 id="10-solicitar-nodos">10. Solicitar nodos<a class="headerlink" href="#10-solicitar-nodos" title="Permanent link">&para;</a></h2>
+<p>También es posible solicitar explícitamente el número de nodos.</p>
+<p>Forma larga:</p>
+<pre><code class="language-bash">#SBATCH --nodes=1
+</code></pre>
+<p>Forma corta:</p>
+<pre><code class="language-bash">#SBATCH -N 1
+</code></pre>
+<p>Ejemplo:</p>
+<pre><code class="language-bash">#SBATCH --nodes=2
+</code></pre>
+<h2 id="11-tareas-por-nodo">11. Tareas por nodo<a class="headerlink" href="#11-tareas-por-nodo" title="Permanent link">&para;</a></h2>
+<pre><code class="language-bash">#SBATCH --ntasks-per-node=24
+</code></pre>
+<p>Ejemplo:</p>
+<pre><code class="language-bash">#SBATCH --nodes=2
+#SBATCH --ntasks-per-node=24
+</code></pre>
+<p>Resultado:</p>
+<pre><code class="language-text">2 nodos × 24 tareas = 48 tareas
+</code></pre>
+<p>Esta opción es común en aplicaciones MPI.</p>
+<h2 id="12-solicitar-memoria">12. Solicitar memoria<a class="headerlink" href="#12-solicitar-memoria" title="Permanent link">&para;</a></h2>
+<p>Se recomienda especificar siempre la memoria requerida.</p>
+<pre><code class="language-bash">#SBATCH --mem=8G
+</code></pre>
+<p>o:</p>
+<pre><code class="language-bash">#SBATCH --mem=8000M
+</code></pre>
+<h2 id="importante">Importante<a class="headerlink" href="#importante" title="Permanent link">&para;</a></h2>
+<p>Cuando no se especifica memoria, Slurm puede reservar toda la memoria disponible del nodo.</p>
+<p>Por esta razón se recomienda incluir siempre:</p>
+<pre><code class="language-bash">#SBATCH --mem=&lt;cantidad&gt;
+</code></pre>
+<h2 id="13-memoria-por-cpu">13. Memoria por CPU<a class="headerlink" href="#13-memoria-por-cpu" title="Permanent link">&para;</a></h2>
+<p>También puede solicitarse memoria por CPU:</p>
+<pre><code class="language-bash">#SBATCH --mem-per-cpu=1G
+</code></pre>
+<p>Ejemplo:</p>
+<pre><code class="language-bash">#SBATCH --ntasks=20
+#SBATCH --mem-per-cpu=1G
+</code></pre>
+<p>Slurm reservará aproximadamente:</p>
+<pre><code class="language-text">20 × 1 GB = 20 GB
+</code></pre>
+<p>Esta opción es muy utilizada en aplicaciones MPI.</p>
+<h2 id="14-archivos-de-salida-y-error">14. Archivos de salida y error<a class="headerlink" href="#14-archivos-de-salida-y-error" title="Permanent link">&para;</a></h2>
+<pre><code class="language-bash">#SBATCH --output=resultado_%j.out
+#SBATCH --error=resultado_%j.err
+</code></pre>
+<p>Variables útiles:</p>
+<table>
+<thead>
+<tr>
+<th>Variable</th>
+<th>Significado</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>%j</td>
+<td>ID del trabajo</td>
+</tr>
+<tr>
+<td>%x</td>
+<td>Nombre del trabajo</td>
+</tr>
+</tbody>
+</table>
+<p>Ejemplo:</p>
+<pre><code class="language-bash">#SBATCH --job-name=simulacion
+#SBATCH --output=%x-%j.out
+#SBATCH --error=%x-%j.err
+</code></pre>
+<p>Generará:</p>
+<pre><code class="language-text">simulacion-123.out
+simulacion-123.err
+</code></pre>
+<h2 id="15-uso-de-modulos">15. Uso de módulos<a class="headerlink" href="#15-uso-de-modulos" title="Permanent link">&para;</a></h2>
+<p>Antes de ejecutar una aplicación debe cargarse el módulo correspondiente.</p>
+<pre><code class="language-bash">module purge
+module load openfoam/2412
+</code></pre>
+<p>Puede consultar los módulos disponibles con:</p>
+<pre><code class="language-bash">module avail
+</code></pre>
+<p>y los módulos cargados con:</p>
+<pre><code class="language-bash">module list
+</code></pre>
+<p>Consulte <strong><a href="../01-uso-modules-lmod/">01-uso-modules-lmod.md</a></strong> para buscar y utilizar aplicaciones.</p>
+<h2 id="16-aplicaciones-que-requieren-configuracion-adicional">16. Aplicaciones que requieren configuración adicional<a class="headerlink" href="#16-aplicaciones-que-requieren-configuracion-adicional" title="Permanent link">&para;</a></h2>
+<p>Algunas aplicaciones requieren inicialización adicional después de cargar el módulo.</p>
+<p>Ejemplo con OpenFOAM:</p>
+<pre><code class="language-bash">module load openfoam/2412
+
+source $FOAM_INST_DIR/openfoam2412/etc/bashrc
+</code></pre>
+<p>Consulte la documentación específica de cada aplicación.</p>
+<h2 id="17-ejecucion-mediante-srun">17. Ejecución mediante <code>srun</code><a class="headerlink" href="#17-ejecucion-mediante-srun" title="Permanent link">&para;</a></h2>
+<pre><code class="language-bash">srun &lt;comando&gt;
+</code></pre>
+<p>Ejemplo:</p>
+<pre><code class="language-bash">srun ./mi_programa
+</code></pre>
+<p>Se recomienda utilizar <code>srun</code> dentro de los scripts para ejecutar aplicaciones utilizando los recursos asignados por Slurm.</p>
+<h2 id="18-uso-interactivo-con-srun">18. Uso interactivo con <code>srun</code><a class="headerlink" href="#18-uso-interactivo-con-srun" title="Permanent link">&para;</a></h2>
+<p>Para realizar pruebas rápidas:</p>
+<pre><code class="language-bash">srun \
+  --partition=hpc-short \
+  --time=00:30:00 \
+  --ntasks=1 \
+  --cpus-per-task=4 \
+  --mem=4G \
+  --pty bash
+</code></pre>
+<p>Esto abrirá una terminal interactiva cuando Slurm asigne recursos.</p>
+<h2 id="19-solicitar-recursos-interactivos-con-salloc">19. Solicitar recursos interactivos con <code>salloc</code><a class="headerlink" href="#19-solicitar-recursos-interactivos-con-salloc" title="Permanent link">&para;</a></h2>
+<p>También es posible reservar recursos mediante:</p>
+<pre><code class="language-bash">salloc \
+  --partition=hpc-short \
+  --time=00:30:00 \
+  --ntasks=1 \
+  --cpus-per-task=4 \
+  --mem=4G
+</code></pre>
+<p>Una vez obtenida la asignación:</p>
+<pre><code class="language-bash">srun ./mi_programa
+</code></pre>
+<h2 id="20-mpi-srun-y-mpirun">20. MPI: <code>srun</code> y <code>mpirun</code><a class="headerlink" href="#20-mpi-srun-y-mpirun" title="Permanent link">&para;</a></h2>
+<p>Dependiendo de la aplicación pueden utilizarse ambos métodos.</p>
+<p>Con <code>srun</code>:</p>
+<pre><code class="language-bash">srun ./mi_programa
+</code></pre>
+<p>Con <code>mpirun</code>:</p>
+<pre><code class="language-bash">mpirun ./mi_programa
+</code></pre>
+<p>Muchos ejemplos del HPC utilizan OpenMPI mediante <code>mpirun</code>.</p>
+<p>Consulte la documentación específica de cada aplicación.</p>
+<h2 id="21-comandos-normales-dentro-del-script">21. Comandos normales dentro del script<a class="headerlink" href="#21-comandos-normales-dentro-del-script" title="Permanent link">&para;</a></h2>
+<p>También pueden utilizarse comandos normales de Linux:</p>
+<pre><code class="language-bash">cd ~/proyecto
+mkdir -p resultados
+cp entrada.dat resultados/
+echo &quot;Iniciando simulación&quot;
+</code></pre>
+<p>También variables de entorno:</p>
+<pre><code class="language-bash">export OMP_NUM_THREADS=4
+</code></pre>
+<p>Estos comandos pueden ejecutarse antes de <code>srun</code>.</p>
+<h2 id="22-ejemplo-basico">22. Ejemplo básico<a class="headerlink" href="#22-ejemplo-basico" title="Permanent link">&para;</a></h2>
+<pre><code class="language-bash">#!/bin/bash
+
+#SBATCH --job-name=prueba
+#SBATCH --partition=hpc-short
+#SBATCH --time=00:30:00
+#SBATCH --ntasks=1
+#SBATCH --cpus-per-task=1
+#SBATCH --mem=2G
+
+module purge
+module load &lt;aplicacion&gt;
+
+srun ./mi_programa
+</code></pre>
+<p>Enviar:</p>
+<pre><code class="language-bash">sbatch trabajo.slurm
+</code></pre>
+<h2 id="23-ejemplo-mpi">23. Ejemplo MPI<a class="headerlink" href="#23-ejemplo-mpi" title="Permanent link">&para;</a></h2>
+<pre><code class="language-bash">#!/bin/bash
+
+#SBATCH --job-name=mpi_test
+#SBATCH --partition=hpc-long
+#SBATCH --time=48:00:00
+#SBATCH --ntasks=20
+#SBATCH --mem-per-cpu=1G
+#SBATCH --output=%x-%j.out
+#SBATCH --error=%x-%j.err
+
+module purge
+module load &lt;aplicacion&gt;
+
+mpirun ./mi_programa
+</code></pre>
+<h2 id="24-ejemplo-openfoam">24. Ejemplo OpenFOAM<a class="headerlink" href="#24-ejemplo-openfoam" title="Permanent link">&para;</a></h2>
+<pre><code class="language-bash">#!/bin/bash
+
+#SBATCH --job-name=prepare
+#SBATCH --partition=hpc
+#SBATCH --time=01:00:00
+#SBATCH --nodes=1
+#SBATCH --ntasks-per-node=1
+#SBATCH --mem=4G
+
+module load openfoam/2412
+
+source $FOAM_INST_DIR/openfoam2412/etc/bashrc
+source $WM_PROJECT_DIR/bin/tools/RunFunctions
+
+blockMesh
+
+decomposePar -force
+</code></pre>
+<h2 id="25-enviar-trabajos">25. Enviar trabajos<a class="headerlink" href="#25-enviar-trabajos" title="Permanent link">&para;</a></h2>
+<pre><code class="language-bash">sbatch trabajo.slurm
+</code></pre>
+<p>Respuesta típica:</p>
+<pre><code class="language-text">Submitted batch job 12345
+</code></pre>
+<h2 id="26-consultar-trabajos">26. Consultar trabajos<a class="headerlink" href="#26-consultar-trabajos" title="Permanent link">&para;</a></h2>
+<p>Todos los trabajos del usuario:</p>
+<pre><code class="language-bash">squeue -u $USER
+</code></pre>
+<p>Trabajo específico:</p>
+<pre><code class="language-bash">squeue -j &lt;jobid&gt;
+</code></pre>
+<h2 id="27-estados-comunes">27. Estados comunes<a class="headerlink" href="#27-estados-comunes" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Estado</th>
+<th>Significado</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>PD</td>
+<td>Pendiente</td>
+</tr>
+<tr>
+<td>R</td>
+<td>Ejecutándose</td>
+</tr>
+<tr>
+<td>CG</td>
+<td>Finalizando</td>
+</tr>
+<tr>
+<td>CD</td>
+<td>Completado</td>
+</tr>
+<tr>
+<td>F</td>
+<td>Fallido</td>
+</tr>
+<tr>
+<td>CA</td>
+<td>Cancelado</td>
+</tr>
+</tbody>
+</table>
+<h2 id="28-informacion-detallada-de-un-trabajo">28. Información detallada de un trabajo<a class="headerlink" href="#28-informacion-detallada-de-un-trabajo" title="Permanent link">&para;</a></h2>
+<pre><code class="language-bash">scontrol show job &lt;jobid&gt;
+</code></pre>
+<p>Esto permite consultar estado, tiempo solicitado, memoria, CPUs, directorio de trabajo, archivos de salida y razones de espera.</p>
+<h2 id="29-razones-comunes-de-espera">29. Razones comunes de espera<a class="headerlink" href="#29-razones-comunes-de-espera" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Razón</th>
+<th>Significado</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Resources</td>
+<td>No hay recursos disponibles</td>
+</tr>
+<tr>
+<td>Priority</td>
+<td>Esperando turno</td>
+</tr>
+<tr>
+<td>ReqNodeNotAvail</td>
+<td>Nodo solicitado no disponible</td>
+</tr>
+<tr>
+<td>Nodes_required_for_job_are_DOWN</td>
+<td>Los nodos requeridos están apagados o no responden</td>
+</tr>
+</tbody>
+</table>
+<h2 id="30-consultar-particiones-y-nodos">30. Consultar particiones y nodos<a class="headerlink" href="#30-consultar-particiones-y-nodos" title="Permanent link">&para;</a></h2>
+<pre><code class="language-bash">sinfo
+</code></pre>
+<p>Vista resumida:</p>
+<pre><code class="language-bash">sinfo -o &quot;%P %a %l %D %C&quot;
+</code></pre>
+<p>También puede revisar nodos y particiones con:</p>
+<pre><code class="language-bash">sinfo -N
+scontrol show nodes
+scontrol show partition
+</code></pre>
+<h2 id="31-variables-utiles-de-slurm">31. Variables útiles de Slurm<a class="headerlink" href="#31-variables-utiles-de-slurm" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Variable</th>
+<th>Descripción</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>$SLURM_JOB_ID</td>
+<td>ID del trabajo</td>
+</tr>
+<tr>
+<td>$SLURM_JOB_NAME</td>
+<td>Nombre del trabajo</td>
+</tr>
+<tr>
+<td>$SLURM_JOB_NODELIST</td>
+<td>Nodos asignados</td>
+</tr>
+<tr>
+<td>$SLURM_NTASKS</td>
+<td>Número de tareas</td>
+</tr>
+<tr>
+<td>$SLURM_CPUS_PER_TASK</td>
+<td>CPU por tarea</td>
+</tr>
+<tr>
+<td>$SLURM_JOB_PARTITION</td>
+<td>Partición utilizada</td>
+</tr>
+</tbody>
+</table>
+<p>Ejemplo:</p>
+<pre><code class="language-bash">echo &quot;Job ID: $SLURM_JOB_ID&quot;
+echo &quot;Partición: $SLURM_JOB_PARTITION&quot;
+</code></pre>
+<h2 id="32-cancelar-trabajos">32. Cancelar trabajos<a class="headerlink" href="#32-cancelar-trabajos" title="Permanent link">&para;</a></h2>
+<pre><code class="language-bash">scancel &lt;jobid&gt;
+</code></pre>
+<p>Ejemplo:</p>
+<pre><code class="language-bash">scancel 12345
+</code></pre>
+<h2 id="33-buenas-practicas">33. Buenas prácticas<a class="headerlink" href="#33-buenas-practicas" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Solicitar únicamente los recursos necesarios.</li>
+<li>Solicitar siempre la memoria requerida.</li>
+<li>Elegir la partición adecuada.</li>
+<li>Solicitar tiempos realistas.</li>
+<li>Cargar módulos dentro del script.</li>
+<li>Utilizar <code>srun</code> para ejecutar aplicaciones cuando sea apropiado.</li>
+<li>Consultar el estado mediante <code>squeue</code>.</li>
+<li>Utilizar <code>scontrol show job</code> para diagnosticar problemas.</li>
+<li>Utilizar <code>srun</code> o <code>salloc</code> para pruebas interactivas.</li>
+<li>Evitar solicitar recursos excesivos.</li>
+</ul>
+<h2 id="34-flujo-recomendado">34. Flujo recomendado<a class="headerlink" href="#34-flujo-recomendado" title="Permanent link">&para;</a></h2>
+<pre><code class="language-text">Preparar script
+      ↓
+Solicitar CPU, memoria y tiempo
+      ↓
+Cargar módulos
+      ↓
+Enviar con sbatch
+      ↓
+Consultar con squeue
+      ↓
+Ejecución
+      ↓
+Revisar resultados
+      ↓
+Diagnóstico con scontrol
+</code></pre>
+<h2 id="35-resumen-rapido">35. Resumen rápido<a class="headerlink" href="#35-resumen-rapido" title="Permanent link">&para;</a></h2>
+<h3 id="enviar">Enviar<a class="headerlink" href="#enviar" title="Permanent link">&para;</a></h3>
+<pre><code class="language-bash">sbatch trabajo.slurm
+</code></pre>
+<h3 id="consultar-cola">Consultar cola<a class="headerlink" href="#consultar-cola" title="Permanent link">&para;</a></h3>
+<pre><code class="language-bash">squeue -u $USER
+</code></pre>
+<h3 id="ver-informacion">Ver información<a class="headerlink" href="#ver-informacion" title="Permanent link">&para;</a></h3>
+<pre><code class="language-bash">scontrol show job &lt;jobid&gt;
+</code></pre>
+<h3 id="cancelar">Cancelar<a class="headerlink" href="#cancelar" title="Permanent link">&para;</a></h3>
+<pre><code class="language-bash">scancel &lt;jobid&gt;
+</code></pre>
+<h3 id="ver-particiones">Ver particiones<a class="headerlink" href="#ver-particiones" title="Permanent link">&para;</a></h3>
+<pre><code class="language-bash">sinfo
+</code></pre>
+<pre><code class="language-bash">sinfo
+</code></pre>
+<h2 id="31-importante">31. Importante<a class="headerlink" href="#31-importante" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Los trabajos de cómputo deben enviarse mediante Slurm.</li>
+<li>No se debe seleccionar manualmente un nodo para un trabajo normal.</li>
+<li>Se debe elegir la partición de acuerdo con la duración del trabajo.</li>
+<li>No se deben solicitar más CPU, memoria o tiempo del necesario.</li>
+<li>Los módulos deben cargarse dentro del script.</li>
+<li>La aplicación debe ejecutarse utilizando los recursos solicitados.</li>
+</ul>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="../01-uso-modules-lmod/" class="btn btn-neutral float-left" title="Modules y Lmod"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../03-uso-interactivo-de-aplicaciones/" class="btn btn-neutral float-right" title="Uso interactivo de aplicaciones">Next <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+    
+      <span><a href="../01-uso-modules-lmod/" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="../03-uso-interactivo-de-aplicaciones/" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script src="../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "..";</script>
+    <script src="../js/theme_extra.js"></script>
+    <script src="../js/theme.js"></script>
+      <script src="../search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>

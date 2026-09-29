@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <link rel="shortcut icon" href="../img/favicon.ico" />
+    <title>Linux - Documentación de acceso y uso del HPC de la Facultad de Ingeniería UNAL</title>
+    <link rel="stylesheet" href="../css/theme.css" />
+    <link rel="stylesheet" href="../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "Linux";
+        var mkdocs_page_input_path = "guia-linux.md";
+        var mkdocs_page_url = null;
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href=".." class="icon icon-home"> Documentación de acceso y uso del HPC de la Facultad de Ingeniería UNAL
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="..">Inicio</a>
+                </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Acceso</span></p>
+              <ul class="current">
+                  <li class="toctree-l1"><a class="reference internal" href="../guia-windows/">Windows</a>
+                  </li>
+                  <li class="toctree-l1 current"><a class="reference internal current" href="#">Linux</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#introduccion">Introducción</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#arquitectura-general">Arquitectura general</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#requisitos-previos">Requisitos previos</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#paso-previo-enviar-la-llave-publica-y-esperar-aprobacion">Paso previo: Enviar la llave pública y esperar aprobación</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#paso-1-generar-una-llave-ssh-rsa-de-4096-bits">Paso 1: Generar una llave SSH RSA de 4096 bits</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#paso-2-visualizar-la-llave-publica">Paso 2: Visualizar la llave pública</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#paso-3-verificar-el-tamano-de-la-llave">Paso 3: Verificar el tamaño de la llave</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#paso-4-instalar-openconnect">Paso 4: Instalar OpenConnect</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#debian-ubuntu">Debian / Ubuntu</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#rhel-fedora-rocky-almalinux">RHEL / Fedora / Rocky / AlmaLinux</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#arch-linux">Arch Linux</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#paso-5-conectarse-a-la-vpn-de-la-universidad">Paso 5: Conectarse a la VPN de la Universidad</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#paso-6-configurar-ssh">Paso 6: Configurar SSH</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#paso-7-inicializar-el-agente-ssh">Paso 7: Inicializar el agente SSH</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#paso-8-conectarse-al-hpc">Paso 8: Conectarse al HPC</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#primera-conexion">Primera conexión</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#conexion-exitosa">Conexión exitosa</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#desconectarse-del-cluster">Desconectarse del cluster</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#desconectarse-de-la-vpn">Desconectarse de la VPN</a>
+    </li>
+    </ul>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Ejecución de aplicaciones</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../04-ejecucion-de-aplicaciones-y-computo-con-slurm/">Ejecución de aplicaciones en el HPC</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../01-uso-modules-lmod/">Modules y Lmod</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../02-uso-slurm/">Slurm</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../03-uso-interactivo-de-aplicaciones/">Uso interactivo de aplicaciones</a>
+                  </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="..">Documentación de acceso y uso del HPC de la Facultad de Ingeniería UNAL</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href=".." class="icon icon-home" aria-label="Docs"></a></li>
+          <li class="breadcrumb-item">Acceso</li>
+      <li class="breadcrumb-item active">Linux</li>
+    <li class="wy-breadcrumbs-aside">
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="guia-de-conexion-al-cluster-hpc-de-la-facultad-de-ingenieria-desde-linux">Guía de conexión al cluster HPC de la Facultad de Ingeniería desde Linux<a class="headerlink" href="#guia-de-conexion-al-cluster-hpc-de-la-facultad-de-ingenieria-desde-linux" title="Permanent link">&para;</a></h1>
+<p>Esta guía explica cómo conectarse al HPC desde Linux usando OpenConnect para la VPN institucional y SSH con autenticación mediante llaves RSA.</p>
+<p>El acceso al VPN y al HPC depende de una aprobación previa de los administradores. Primero debe generar su llave pública, enviarla junto a sus datos mediante el formulario y esperar una respuesta favorable antes de intentar conectarse.</p>
+<h2 id="introduccion">Introducción<a class="headerlink" href="#introduccion" title="Permanent link">&para;</a></h2>
+<p>El acceso al cluster no está disponible directamente desde Internet. Primero debe establecerse una conexión VPN con la Universidad Nacional.</p>
+<h2 id="arquitectura-general">Arquitectura general<a class="headerlink" href="#arquitectura-general" title="Permanent link">&para;</a></h2>
+<pre><code class="language-text">Computador personal
+  |
+  v
+VPN UNAL con OpenConnect
+  |
+  v
+Red interna UNAL
+  |
+  v
+Cluster HPC
+</code></pre>
+<h2 id="requisitos-previos">Requisitos previos<a class="headerlink" href="#requisitos-previos" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Cuenta institucional UNAL.</li>
+<li>Linux instalado.</li>
+<li>Acceso a terminal.</li>
+</ul>
+<h2 id="paso-previo-enviar-la-llave-publica-y-esperar-aprobacion">Paso previo: Enviar la llave pública y esperar aprobación<a class="headerlink" href="#paso-previo-enviar-la-llave-publica-y-esperar-aprobacion" title="Permanent link">&para;</a></h2>
+<p>Antes de conectarse a la VPN, debe completar el formulario con sus datos y adjuntar la llave pública generada en el Paso 1.</p>
+<p>Formulario de acceso:</p>
+<p><a href="https://docs.google.com/forms/d/e/1FAIpQLSesV0MxEX2LuW0-qb3do4K5E4pAYCZPuE7c8N2kmcX-bvVP2Q/viewform?usp=header">Formulario de acceso</a></p>
+<p>Hasta recibir una respuesta favorable, no debe intentar usar la VPN ni acceder al HPC.</p>
+<h2 id="paso-1-generar-una-llave-ssh-rsa-de-4096-bits">Paso 1: Generar una llave SSH RSA de 4096 bits<a class="headerlink" href="#paso-1-generar-una-llave-ssh-rsa-de-4096-bits" title="Permanent link">&para;</a></h2>
+<p>Genere una nueva llave RSA:</p>
+<pre><code class="language-bash">ssh-keygen -t rsa -b 4096 -C &quot;correo@unal.edu.co&quot;
+</code></pre>
+<p>Presione Enter cuando pregunte dónde guardar la llave para usar la ruta predeterminada.</p>
+<p>Cuando se solicite una passphrase, puede dejarla vacía o definir una contraseña segura.</p>
+<p>Se crearán los archivos:</p>
+<pre><code class="language-text">~/.ssh/id_rsa
+~/.ssh/id_rsa.pub
+</code></pre>
+<p>La llave privada no debe compartirse. La llave pública sí debe enviarse al formulario de acceso al HPC.</p>
+<h2 id="paso-2-visualizar-la-llave-publica">Paso 2: Visualizar la llave pública<a class="headerlink" href="#paso-2-visualizar-la-llave-publica" title="Permanent link">&para;</a></h2>
+<p>Si desea revisar el contenido de la llave pública:</p>
+<pre><code class="language-bash">cat ~/.ssh/id_rsa.pub
+</code></pre>
+<h2 id="paso-3-verificar-el-tamano-de-la-llave">Paso 3: Verificar el tamaño de la llave<a class="headerlink" href="#paso-3-verificar-el-tamano-de-la-llave" title="Permanent link">&para;</a></h2>
+<p>Verifique que la llave sea RSA de 4096 bits:</p>
+<pre><code class="language-bash">ssh-keygen -lf ~/.ssh/id_rsa.pub
+</code></pre>
+<h2 id="paso-4-instalar-openconnect">Paso 4: Instalar OpenConnect<a class="headerlink" href="#paso-4-instalar-openconnect" title="Permanent link">&para;</a></h2>
+<p>Instale OpenConnect según su distribución:</p>
+<h3 id="debian-ubuntu">Debian / Ubuntu<a class="headerlink" href="#debian-ubuntu" title="Permanent link">&para;</a></h3>
+<pre><code class="language-bash">sudo apt update
+sudo apt install openconnect -y
+</code></pre>
+<h3 id="rhel-fedora-rocky-almalinux">RHEL / Fedora / Rocky / AlmaLinux<a class="headerlink" href="#rhel-fedora-rocky-almalinux" title="Permanent link">&para;</a></h3>
+<pre><code class="language-bash">sudo dnf install openconnect -y
+</code></pre>
+<h3 id="arch-linux">Arch Linux<a class="headerlink" href="#arch-linux" title="Permanent link">&para;</a></h3>
+<pre><code class="language-bash">sudo pacman -S openconnect
+</code></pre>
+<p>Verifique la instalación:</p>
+<pre><code class="language-bash">openconnect --version
+</code></pre>
+<h2 id="paso-5-conectarse-a-la-vpn-de-la-universidad">Paso 5: Conectarse a la VPN de la Universidad<a class="headerlink" href="#paso-5-conectarse-a-la-vpn-de-la-universidad" title="Permanent link">&para;</a></h2>
+<p>Conéctese usando el protocolo de GlobalProtect:</p>
+<pre><code class="language-bash">sudo openconnect --protocol=gp vpnpa.unal.edu.co
+</code></pre>
+<p>Cuando aparezca <code>Username:</code>, ingrese su usuario institucional.</p>
+<p>Cuando aparezca <code>Password:</code>, ingrese la contraseña institucional.</p>
+<p>Mantenga la terminal abierta mientras use la VPN.</p>
+<h2 id="paso-6-configurar-ssh">Paso 6: Configurar SSH<a class="headerlink" href="#paso-6-configurar-ssh" title="Permanent link">&para;</a></h2>
+<p>En otra terminal, edite el archivo de configuración SSH:</p>
+<pre><code class="language-bash">nano ~/.ssh/config
+</code></pre>
+<p>Agregue este bloque:</p>
+<pre><code class="language-text">Host clusterFacIngUN
+    HostName 168.176.27.104
+    User usuarioInstitucional
+    Port 22
+    IdentityFile ~/.ssh/id_rsa
+    IdentitiesOnly yes
+</code></pre>
+<p>Reemplace <code>usuarioInstitucional</code> por su usuario sin el dominio <code>@unal.edu.co</code>.</p>
+<p>Guarde el archivo y ajuste permisos:</p>
+<pre><code class="language-bash">chmod 600 ~/.ssh/config
+</code></pre>
+<h2 id="paso-7-inicializar-el-agente-ssh">Paso 7: Inicializar el agente SSH<a class="headerlink" href="#paso-7-inicializar-el-agente-ssh" title="Permanent link">&para;</a></h2>
+<p>Inicie el agente SSH y agregue la llave:</p>
+<pre><code class="language-bash">eval &quot;$(ssh-agent -s)&quot;
+ssh-add ~/.ssh/id_rsa
+</code></pre>
+<p>Verifique que la llave quedó cargada:</p>
+<pre><code class="language-bash">ssh-add -l
+</code></pre>
+<h2 id="paso-8-conectarse-al-hpc">Paso 8: Conectarse al HPC<a class="headerlink" href="#paso-8-conectarse-al-hpc" title="Permanent link">&para;</a></h2>
+<p>Con la VPN activa y la autorización del administrador, conecte con:</p>
+<pre><code class="language-bash">ssh clusterFacIngUN
+</code></pre>
+<p>Si desea compresión en la sesión para transferir grandes cantidades de datos, use:</p>
+<pre><code class="language-bash">ssh -CY clusterFacIngUN
+</code></pre>
+<h2 id="primera-conexion">Primera conexión<a class="headerlink" href="#primera-conexion" title="Permanent link">&para;</a></h2>
+<p>La primera vez aparecerá un mensaje sobre la autenticidad del host. Responda:</p>
+<pre><code class="language-text">yes
+</code></pre>
+<p>Luego SSH guardará la huella digital del servidor.</p>
+<h2 id="conexion-exitosa">Conexión exitosa<a class="headerlink" href="#conexion-exitosa" title="Permanent link">&para;</a></h2>
+<p>Cuando el acceso sea correcto, verá el prompt del sistema remoto y podrá trabajar dentro del HPC.</p>
+<h2 id="desconectarse-del-cluster">Desconectarse del cluster<a class="headerlink" href="#desconectarse-del-cluster" title="Permanent link">&para;</a></h2>
+<p>Salga de la sesión SSH con:</p>
+<pre><code class="language-bash">exit
+</code></pre>
+<p>También puede usar <code>Ctrl + D</code>.</p>
+<h2 id="desconectarse-de-la-vpn">Desconectarse de la VPN<a class="headerlink" href="#desconectarse-de-la-vpn" title="Permanent link">&para;</a></h2>
+<p>Regrese a la terminal donde está ejecutándose OpenConnect y presione:</p>
+<pre><code class="language-text">Ctrl + C
+</code></pre>
+<p>La VPN se cerrará.</p>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="../guia-windows/" class="btn btn-neutral float-left" title="Windows"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../04-ejecucion-de-aplicaciones-y-computo-con-slurm/" class="btn btn-neutral float-right" title="Ejecución de aplicaciones en el HPC">Next <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+    
+      <span><a href="../guia-windows/" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="../04-ejecucion-de-aplicaciones-y-computo-con-slurm/" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script src="../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "..";</script>
+    <script src="../js/theme_extra.js"></script>
+    <script src="../js/theme.js"></script>
+      <script src="../search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>

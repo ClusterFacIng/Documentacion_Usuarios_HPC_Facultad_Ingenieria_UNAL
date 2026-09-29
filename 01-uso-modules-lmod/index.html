@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <link rel="shortcut icon" href="../img/favicon.ico" />
+    <title>Modules y Lmod - Documentación de acceso y uso del HPC de la Facultad de Ingeniería UNAL</title>
+    <link rel="stylesheet" href="../css/theme.css" />
+    <link rel="stylesheet" href="../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "Modules y Lmod";
+        var mkdocs_page_input_path = "01-uso-modules-lmod.md";
+        var mkdocs_page_url = null;
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href=".." class="icon icon-home"> Documentación de acceso y uso del HPC de la Facultad de Ingeniería UNAL
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="..">Inicio</a>
+                </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Acceso</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../guia-windows/">Windows</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../guia-linux/">Linux</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Ejecución de aplicaciones</span></p>
+              <ul class="current">
+                  <li class="toctree-l1"><a class="reference internal" href="../04-ejecucion-de-aplicaciones-y-computo-con-slurm/">Ejecución de aplicaciones en el HPC</a>
+                  </li>
+                  <li class="toctree-l1 current"><a class="reference internal current" href="#">Modules y Lmod</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#1-objetivo">1. Objetivo</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#2-que-es-module">2. ¿Qué es module?</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#3-ver-las-aplicaciones-disponibles">3. Ver las aplicaciones disponibles</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#4-cargar-una-aplicacion">4. Cargar una aplicación</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#5-verificar-una-aplicacion">5. Verificar una aplicación</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#6-consultar-informacion-de-un-modulo">6. Consultar información de un módulo</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#7-ver-los-modulos-cargados">7. Ver los módulos cargados</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#8-quitar-una-aplicacion">8. Quitar una aplicación</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#9-limpiar-el-entorno">9. Limpiar el entorno</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#10-utilizar-una-version-especifica">10. Utilizar una versión específica</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#11-aplicaciones-con-dependencias">11. Aplicaciones con dependencias</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#12-uso-de-modules-con-slurm">12. Uso de Modules con Slurm</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#13-guardar-un-entorno">13. Guardar un entorno</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#14-si-una-aplicacion-no-esta-disponible">14. Si una aplicación no está disponible</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#15-comandos-de-uso-frecuente">15. Comandos de uso frecuente</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#16-flujo-rapido">16. Flujo rápido</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#17-buenas-practicas">17. Buenas prácticas</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#18-resumen">18. Resumen</a>
+    </li>
+    </ul>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../02-uso-slurm/">Slurm</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../03-uso-interactivo-de-aplicaciones/">Uso interactivo de aplicaciones</a>
+                  </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="..">Documentación de acceso y uso del HPC de la Facultad de Ingeniería UNAL</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href=".." class="icon icon-home" aria-label="Docs"></a></li>
+          <li class="breadcrumb-item">Ejecución de aplicaciones</li>
+      <li class="breadcrumb-item active">Modules y Lmod</li>
+    <li class="wy-breadcrumbs-aside">
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="manual-de-uso-de-modules-lmod">Manual de uso de Modules (Lmod)<a class="headerlink" href="#manual-de-uso-de-modules-lmod" title="Permanent link">&para;</a></h1>
+<h2 id="1-objetivo">1. Objetivo<a class="headerlink" href="#1-objetivo" title="Permanent link">&para;</a></h2>
+<p>Este manual explica cómo consultar y utilizar las aplicaciones disponibles en el HPC mediante <strong>Modules (Lmod)</strong>.</p>
+<p>El sistema de módulos permite seleccionar las aplicaciones y versiones que ya han sido instaladas por los administradores del HPC.</p>
+<blockquote>
+<p><strong>Importante:</strong> los usuarios no deben instalar software ni modificar las instalaciones del sistema. Si una aplicación no está disponible, debe solicitarse al administrador del HPC.</p>
+</blockquote>
+<h2 id="2-que-es-module">2. ¿Qué es <code>module</code>?<a class="headerlink" href="#2-que-es-module" title="Permanent link">&para;</a></h2>
+<p><code>module</code> permite activar una aplicación dentro de la sesión de trabajo.</p>
+<pre><code class="language-bash">module load openfoam/2506
+</code></pre>
+<p>Esto <strong>no instala OpenFOAM</strong>. Simplemente configura el entorno para utilizar la versión que ya está instalada en el HPC.</p>
+<h2 id="3-ver-las-aplicaciones-disponibles">3. Ver las aplicaciones disponibles<a class="headerlink" href="#3-ver-las-aplicaciones-disponibles" title="Permanent link">&para;</a></h2>
+<pre><code class="language-bash">module avail
+</code></pre>
+<p>Para buscar una aplicación específica:</p>
+<pre><code class="language-bash">module spider &lt;aplicacion&gt;
+</code></pre>
+<p>Ejemplo:</p>
+<pre><code class="language-bash">module spider openfoam
+</code></pre>
+<p><code>module spider</code> también permite consultar las versiones disponibles y, cuando corresponde, información sobre los requisitos de la aplicación.</p>
+<h2 id="4-cargar-una-aplicacion">4. Cargar una aplicación<a class="headerlink" href="#4-cargar-una-aplicacion" title="Permanent link">&para;</a></h2>
+<pre><code class="language-bash">module load &lt;aplicacion&gt;
+</code></pre>
+<p>Para una versión específica:</p>
+<pre><code class="language-bash">module load &lt;aplicacion&gt;/&lt;version&gt;
+</code></pre>
+<p>Ejemplo:</p>
+<pre><code class="language-bash">module load openfoam/2506
+</code></pre>
+<p>Después:</p>
+<pre><code class="language-bash">module list
+</code></pre>
+<h2 id="5-verificar-una-aplicacion">5. Verificar una aplicación<a class="headerlink" href="#5-verificar-una-aplicacion" title="Permanent link">&para;</a></h2>
+<pre><code class="language-bash">which &lt;comando&gt;
+</code></pre>
+<p>y, cuando la aplicación lo permita:</p>
+<pre><code class="language-bash">&lt;comando&gt; --version
+</code></pre>
+<p>Ejemplo:</p>
+<pre><code class="language-bash">module load cmake
+which cmake
+cmake --version
+</code></pre>
+<h2 id="6-consultar-informacion-de-un-modulo">6. Consultar información de un módulo<a class="headerlink" href="#6-consultar-informacion-de-un-modulo" title="Permanent link">&para;</a></h2>
+<pre><code class="language-bash">module show &lt;modulo&gt;
+</code></pre>
+<p>Ejemplo:</p>
+<pre><code class="language-bash">module show openmpi5
+</code></pre>
+<h2 id="7-ver-los-modulos-cargados">7. Ver los módulos cargados<a class="headerlink" href="#7-ver-los-modulos-cargados" title="Permanent link">&para;</a></h2>
+<pre><code class="language-bash">module list
+</code></pre>
+<h2 id="8-quitar-una-aplicacion">8. Quitar una aplicación<a class="headerlink" href="#8-quitar-una-aplicacion" title="Permanent link">&para;</a></h2>
+<pre><code class="language-bash">module unload &lt;modulo&gt;
+</code></pre>
+<h2 id="9-limpiar-el-entorno">9. Limpiar el entorno<a class="headerlink" href="#9-limpiar-el-entorno" title="Permanent link">&para;</a></h2>
+<pre><code class="language-bash">module purge
+</code></pre>
+<p>Se recomienda utilizarlo antes de preparar un entorno nuevo.</p>
+<pre><code class="language-bash">module purge
+module load gnu14
+module load openmpi5
+</code></pre>
+<h2 id="10-utilizar-una-version-especifica">10. Utilizar una versión específica<a class="headerlink" href="#10-utilizar-una-version-especifica" title="Permanent link">&para;</a></h2>
+<p>Cuando existen varias versiones, se recomienda indicar explícitamente la versión en trabajos que deban ser reproducibles:</p>
+<pre><code class="language-bash">module load openfoam/2506
+</code></pre>
+<h2 id="11-aplicaciones-con-dependencias">11. Aplicaciones con dependencias<a class="headerlink" href="#11-aplicaciones-con-dependencias" title="Permanent link">&para;</a></h2>
+<p>Algunas aplicaciones requieren otros componentes para funcionar. Lmod puede gestionar estas relaciones.</p>
+<p>Para consultar los requisitos:</p>
+<pre><code class="language-bash">module spider &lt;aplicacion&gt;
+</code></pre>
+<p>No se deben cargar módulos adicionales sin necesidad.</p>
+<h2 id="12-uso-de-modules-con-slurm">12. Uso de Modules con Slurm<a class="headerlink" href="#12-uso-de-modules-con-slurm" title="Permanent link">&para;</a></h2>
+<p>Cuando una aplicación se ejecuta mediante un trabajo de Slurm, los módulos necesarios deben cargarse <strong>dentro del script del trabajo</strong>.</p>
+<pre><code class="language-bash">#!/bin/bash
+
+#SBATCH --job-name=mi_trabajo
+#SBATCH --partition=hpc-short
+#SBATCH --time=00:30:00
+
+module purge
+module load &lt;aplicacion&gt;/&lt;version&gt;
+
+srun &lt;comando&gt;
+</code></pre>
+<p>La configuración de recursos y las opciones de Slurm se explican en <strong><a href="../02-uso-slurm/">02-uso-slurm.md</a></strong>. Para comprender cuándo es adecuado realizar una prueba interactiva y cuándo se debe pasar a un trabajo de Slurm, consulte también <strong><a href="../03-uso-interactivo-de-aplicaciones/">03-uso-interactivo-de-aplicaciones.md</a></strong> y <strong><a href="../04-ejecucion-de-aplicaciones-y-computo-con-slurm/">04-ejecucion-de-aplicaciones-y-computo-con-slurm.md</a></strong>.</p>
+<blockquote>
+<p><strong>Advertencia:</strong> la ejecución interactiva solo debe usarse para revisar que la aplicación responda correctamente antes de enviar un trabajo grande. No reemplaza el uso de Slurm para actividades de cómputo reales.</p>
+</blockquote>
+<h2 id="13-guardar-un-entorno">13. Guardar un entorno<a class="headerlink" href="#13-guardar-un-entorno" title="Permanent link">&para;</a></h2>
+<pre><code class="language-bash">module save mi_entorno
+</code></pre>
+<p>Para restaurarlo:</p>
+<pre><code class="language-bash">module restore mi_entorno
+</code></pre>
+<p>Para consultar las colecciones:</p>
+<pre><code class="language-bash">module savelist
+</code></pre>
+<h2 id="14-si-una-aplicacion-no-esta-disponible">14. Si una aplicación no está disponible<a class="headerlink" href="#14-si-una-aplicacion-no-esta-disponible" title="Permanent link">&para;</a></h2>
+<p>Primero:</p>
+<pre><code class="language-bash">module avail
+</code></pre>
+<p>y después:</p>
+<pre><code class="language-bash">module spider &lt;aplicacion&gt;
+</code></pre>
+<p>Si tampoco aparece, es posible que no esté instalada o no esté disponible para usuarios.</p>
+<ul>
+<li>No intente instalarla globalmente.</li>
+<li>No modifique los directorios de software del sistema.</li>
+<li>Solicite al administrador del HPC la instalación o habilitación de la aplicación.</li>
+</ul>
+<h2 id="15-comandos-de-uso-frecuente">15. Comandos de uso frecuente<a class="headerlink" href="#15-comandos-de-uso-frecuente" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Comando</th>
+<th>Función</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>module avail</code></td>
+<td>Ver módulos disponibles</td>
+</tr>
+<tr>
+<td><code>module spider &lt;aplicacion&gt;</code></td>
+<td>Buscar una aplicación y sus versiones</td>
+</tr>
+<tr>
+<td><code>module load &lt;modulo&gt;</code></td>
+<td>Cargar una aplicación</td>
+</tr>
+<tr>
+<td><code>module unload &lt;modulo&gt;</code></td>
+<td>Quitar una aplicación</td>
+</tr>
+<tr>
+<td><code>module list</code></td>
+<td>Ver módulos cargados</td>
+</tr>
+<tr>
+<td><code>module purge</code></td>
+<td>Limpiar los módulos cargados</td>
+</tr>
+<tr>
+<td><code>module show &lt;modulo&gt;</code></td>
+<td>Consultar información del módulo</td>
+</tr>
+<tr>
+<td><code>module save &lt;nombre&gt;</code></td>
+<td>Guardar un entorno</td>
+</tr>
+<tr>
+<td><code>module restore &lt;nombre&gt;</code></td>
+<td>Restaurar un entorno</td>
+</tr>
+<tr>
+<td><code>module savelist</code></td>
+<td>Ver entornos guardados</td>
+</tr>
+</tbody>
+</table>
+<h2 id="16-flujo-rapido">16. Flujo rápido<a class="headerlink" href="#16-flujo-rapido" title="Permanent link">&para;</a></h2>
+<pre><code class="language-bash">module spider &lt;aplicacion&gt;
+module purge
+module load &lt;aplicacion&gt;/&lt;version&gt;
+module list
+which &lt;comando&gt;
+</code></pre>
+<p>Después puede utilizarse la aplicación en una sesión interactiva o dentro de un trabajo de Slurm.</p>
+<h2 id="17-buenas-practicas">17. Buenas prácticas<a class="headerlink" href="#17-buenas-practicas" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Buscar primero la aplicación con <code>module spider</code>.</li>
+<li>Utilizar <code>module purge</code> antes de preparar un entorno nuevo.</li>
+<li>Cargar únicamente las aplicaciones necesarias.</li>
+<li>Utilizar versiones específicas cuando se requiera reproducibilidad.</li>
+<li>Cargar los módulos dentro del script de Slurm.</li>
+<li>No modificar ni eliminar software instalado por los administradores.</li>
+<li>Solicitar al administrador las aplicaciones que no estén disponibles.</li>
+</ul>
+<h2 id="18-resumen">18. Resumen<a class="headerlink" href="#18-resumen" title="Permanent link">&para;</a></h2>
+<p>El uso habitual de Modules es:</p>
+<pre><code class="language-text">Buscar → Cargar → Verificar → Utilizar
+</code></pre>
+<p>Ejemplo:</p>
+<pre><code class="language-bash">module spider openfoam
+module purge
+module load openfoam/2506
+module list
+</code></pre>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="../04-ejecucion-de-aplicaciones-y-computo-con-slurm/" class="btn btn-neutral float-left" title="Ejecución de aplicaciones en el HPC"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../02-uso-slurm/" class="btn btn-neutral float-right" title="Slurm">Next <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+    
+      <span><a href="../04-ejecucion-de-aplicaciones-y-computo-con-slurm/" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="../02-uso-slurm/" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script src="../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "..";</script>
+    <script src="../js/theme_extra.js"></script>
+    <script src="../js/theme.js"></script>
+      <script src="../search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>
